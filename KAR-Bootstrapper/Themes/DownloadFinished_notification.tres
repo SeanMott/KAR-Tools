@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b84sovw7f0a3j"]
+
+[ext_resource type="FontFile" uid="uid://bfssbuellovur" path="res://Fonts/A-OTF-FolkPro-Regular.otf" id="1_u6861"]
+
+[resource]
+/colors/color = Color(0, 0.768935, 0, 1)
+/fonts/font = ExtResource("1_u6861")

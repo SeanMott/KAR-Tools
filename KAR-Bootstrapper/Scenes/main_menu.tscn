@@ -1,0 +1,290 @@
+[gd_scene load_steps=13 format=3 uid="uid://d0whproyu08kf"]
+
+[ext_resource type="Texture2D" uid="uid://t2ale2427cgc" path="res://Images/kaaby.jpg" id="1_blqef"]
+[ext_resource type="FontFile" uid="uid://boxkp7ds8ypq3" path="res://Fonts/A-OTF-FolkPro-Bold.otf" id="1_j6vjs"]
+[ext_resource type="FontFile" uid="uid://bfssbuellovur" path="res://Fonts/A-OTF-FolkPro-Regular.otf" id="1_xjx6n"]
+[ext_resource type="Script" path="res://Scenes/ChangeScreen.cs" id="4_l61tw"]
+[ext_resource type="Script" path="res://Scripts/SetDir.cs" id="4_uchix"]
+[ext_resource type="Resource" uid="uid://c8wdrh5eq6udk" path="res://InstallerData.tres" id="5_x3dr4"]
+[ext_resource type="Script" path="res://Scripts/CheckBoxUpdater.cs" id="6_hfup0"]
+[ext_resource type="Script" path="res://Scripts/DownloadManager.cs" id="7_3s4m1"]
+[ext_resource type="Script" path="res://Scripts/SetMigrationPath.cs" id="7_dq06y"]
+[ext_resource type="Theme" uid="uid://b84sovw7f0a3j" path="res://Themes/DownloadFinished_notification.tres" id="9_mbkt5"]
+[ext_resource type="Theme" uid="uid://vu5e7squ38yi" path="res://Themes/Downloading.tres" id="10_asacq"]
+[ext_resource type="Theme" uid="uid://ckt46oebexnqy" path="res://Themes/SystemNotfication_Theme.tres" id="11_c2i7i"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_blqef")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Intro_Screen" type="Node2D" parent="."]
+
+[node name="Intro" type="Label" parent="Intro_Screen"]
+offset_left = 32.0
+offset_top = 219.0
+offset_right = 1120.0
+offset_bottom = 276.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "Welcome to the KAR Installer. We will assist you in getting ready for KAR Netplay.
+
+If you're a new Player press \"New\".
+
+If you are migrating from the R10 build, press \"Migrate\"."
+horizontal_alignment = 1
+
+[node name="Migrate_Button" type="Button" parent="Intro_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 159.0
+offset_top = 500.0
+offset_right = 392.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Migrate"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../Migrate_Screen")
+
+[node name="New_Button" type="Button" parent="Intro_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 748.0
+offset_top = 500.0
+offset_right = 981.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "New"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../Paths_Screen")
+
+[node name="Paths_Screen" type="Node2D" parent="."]
+visible = false
+
+[node name="Intro" type="Label" parent="Paths_Screen"]
+offset_left = 18.0
+offset_top = 121.0
+offset_right = 1106.0
+offset_bottom = 178.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "Please select the folders for where KAR Workshop (the main launcher) and any mods should go."
+horizontal_alignment = 1
+
+[node name="Set_Dir" type="Button" parent="Paths_Screen" node_paths=PackedStringArray("dialogWindow", "label")]
+offset_left = 83.0
+offset_top = 178.0
+offset_right = 316.0
+offset_bottom = 253.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Set Dir"
+script = ExtResource("4_uchix")
+installerSettings = ExtResource("5_x3dr4")
+dialogWindow = NodePath("FileDialog")
+label = NodePath("KW_Path")
+
+[node name="FileDialog" type="FileDialog" parent="Paths_Screen/Set_Dir"]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(500, 800)
+popup_window = true
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="KW_Path" type="Label" parent="Paths_Screen/Set_Dir"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 10.0
+offset_right = 1348.0
+offset_bottom = 67.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "KW Path: \"\""
+
+[node name="Next_Button" type="Button" parent="Paths_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 748.0
+offset_top = 500.0
+offset_right = 981.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Next"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../ExtraGoodies_Screen")
+
+[node name="Migrate_Screen" type="Node2D" parent="."]
+visible = false
+
+[node name="Intro" type="Label" parent="Migrate_Screen"]
+offset_left = 18.0
+offset_top = 121.0
+offset_right = 1106.0
+offset_bottom = 178.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "Please select the folders for where KAR Workshop (the main launcher) and any mods should go."
+horizontal_alignment = 1
+
+[node name="Set_Dir" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("dialogWindow", "label")]
+offset_left = 83.0
+offset_top = 178.0
+offset_right = 316.0
+offset_bottom = 253.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Set Dir"
+script = ExtResource("4_uchix")
+installerSettings = ExtResource("5_x3dr4")
+dialogWindow = NodePath("FileDialog")
+label = NodePath("KW_Path")
+
+[node name="FileDialog" type="FileDialog" parent="Migrate_Screen/Set_Dir"]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(500, 800)
+popup_window = true
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="KW_Path" type="Label" parent="Migrate_Screen/Set_Dir"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 10.0
+offset_right = 1348.0
+offset_bottom = 67.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "KW Path: \"\""
+
+[node name="Next_Button" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 748.0
+offset_top = 500.0
+offset_right = 981.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Next"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../ExtraGoodies_Screen")
+
+[node name="Set_R10" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("dialogWindow", "label")]
+offset_left = 83.0
+offset_top = 362.0
+offset_right = 316.0
+offset_bottom = 437.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "R10 Folder"
+script = ExtResource("7_dq06y")
+installerSettings = ExtResource("5_x3dr4")
+dialogWindow = NodePath("FileDialog")
+label = NodePath("R10_Path")
+
+[node name="FileDialog" type="FileDialog" parent="Migrate_Screen/Set_R10"]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(500, 800)
+popup_window = true
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="R10_Path" type="Label" parent="Migrate_Screen/Set_R10"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 10.0
+offset_right = 1348.0
+offset_bottom = 67.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "R10 Path: \"\""
+
+[node name="ExtraGoodies_Screen" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_hfup0")
+installerData = ExtResource("5_x3dr4")
+
+[node name="Intro" type="Label" parent="ExtraGoodies_Screen"]
+offset_left = 32.0
+offset_top = 127.0
+offset_right = 1120.0
+offset_bottom = 184.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "Extras"
+horizontal_alignment = 1
+
+[node name="StartDownload_Button" type="Button" parent="ExtraGoodies_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 748.0
+offset_top = 500.0
+offset_right = 981.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Download"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../DownloadProgress_Screen")
+
+[node name="GCAdapter_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
+offset_left = 181.0
+offset_top = 225.0
+offset_right = 925.0
+offset_bottom = 256.0
+disabled = true
+text = "Install GC/Wii adapter drivers. (Only if you haven't installed them yourself or through Slippie)"
+
+[node name="KARDont_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
+offset_left = 181.0
+offset_top = 263.0
+offset_right = 925.0
+offset_bottom = 294.0
+disabled = true
+text = "Get KARDont (custom KAR Nintendon't for Wii and Wii U)"
+
+[node name="NoHPOrBS_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
+offset_left = 181.0
+offset_top = 304.0
+offset_right = 925.0
+offset_bottom = 335.0
+button_pressed = true
+text = "DON'T install Hack Pack and Backside V2"
+
+[node name="BSSkins_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
+offset_left = 181.0
+offset_top = 343.0
+offset_right = 925.0
+offset_bottom = 374.0
+text = "Install Backside V2 Skin Packs"
+
+[node name="DownloadProgress_Screen" type="Node2D" parent="."]
+visible = false
+script = ExtResource("7_3s4m1")
+installerData = ExtResource("5_x3dr4")
+itemHasFinished_FontColor = ExtResource("9_mbkt5")
+itemIsDownloading_FontColor = ExtResource("10_asacq")
+systemEventInProgess_FontColor = ExtResource("11_c2i7i")
+
+[connection signal="pressed" from="Paths_Screen/Set_Dir" to="Paths_Screen/Set_Dir" method="_on_pressed"]
+[connection signal="dir_selected" from="Paths_Screen/Set_Dir/FileDialog" to="Paths_Screen/Set_Dir" method="OnKARWorkshopDirSelected"]
+[connection signal="pressed" from="Migrate_Screen/Set_Dir" to="Migrate_Screen/Set_Dir" method="_on_pressed"]
+[connection signal="dir_selected" from="Migrate_Screen/Set_Dir/FileDialog" to="Migrate_Screen/Set_Dir" method="OnKARWorkshopDirSelected"]
+[connection signal="pressed" from="Migrate_Screen/Set_R10" to="Migrate_Screen/Set_R10" method="_on_pressed"]
+[connection signal="dir_selected" from="Migrate_Screen/Set_R10/FileDialog" to="Migrate_Screen/Set_R10" method="OnR10DirSelected"]
+[connection signal="toggled" from="ExtraGoodies_Screen/GCAdapter_Checkbox" to="ExtraGoodies_Screen" method="_on_gc_adapter_checkbox_toggled"]
+[connection signal="toggled" from="ExtraGoodies_Screen/KARDont_Checkbox" to="ExtraGoodies_Screen" method="_on_kar_dont_checkbox_toggled"]
+[connection signal="toggled" from="ExtraGoodies_Screen/NoHPOrBS_Checkbox" to="ExtraGoodies_Screen" method="_on_ROMNoDownload_checkbox_toggled"]
+[connection signal="toggled" from="ExtraGoodies_Screen/BSSkins_Checkbox" to="ExtraGoodies_Screen" method="_on_SkinPacksDownload_checkbox_toggled"]

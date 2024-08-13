@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ckt46oebexnqy"]
+
+[ext_resource type="FontFile" uid="uid://bfssbuellovur" path="res://Fonts/A-OTF-FolkPro-Regular.otf" id="1_2kamg"]
+
+[resource]
+/colors/font = Color(0.835294, 0.427451, 0.964706, 1)
+/fonts/font = ExtResource("1_2kamg")

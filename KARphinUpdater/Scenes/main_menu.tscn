@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdkxdm41k6urc"]
+
+[ext_resource type="Texture2D" uid="uid://t2ale2427cgc" path="res://Images/kaaby.jpg" id="1_blqef"]
+[ext_resource type="FontFile" uid="uid://boxkp7ds8ypq3" path="res://Fonts/A-OTF-FolkPro-Bold.otf" id="1_j6vjs"]
+[ext_resource type="FontFile" uid="uid://bfssbuellovur" path="res://Fonts/A-OTF-FolkPro-Regular.otf" id="1_xjx6n"]
+[ext_resource type="Script" path="res://Scripts/UpdateContent.cs" id="4_mxxmp"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_blqef")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Intro_Screen" type="Node2D" parent="."]
+
+[node name="Intro" type="Label" parent="Intro_Screen"]
+offset_left = 32.0
+offset_top = 17.0
+offset_right = 1120.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "----Welcome to the KARphin Updater----
+
+To update KARphin, press \"KARphin\"
+
+To Update Backside Gekko Codes, press \"Backside Codes\"
+
+To Update Backside  itself, press \"Backside\"
+
+If you need to update your Updater, either run the Bootsrapper and generate a new set up/use Migrate to port over your settings.
+
+Or get the latest build of the Updater in the Git Release. If unsure where that is, check the Discord or find Jas."
+horizontal_alignment = 1
+
+[node name="BCodes_Button" type="Button" parent="Intro_Screen"]
+offset_left = 29.0
+offset_top = 500.0
+offset_right = 262.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Backside Codes"
+script = ExtResource("4_mxxmp")
+BacksideCodes = true
+
+[node name="Backside_Button" type="Button" parent="Intro_Screen"]
+offset_left = 29.0
+offset_top = 383.0
+offset_right = 262.0
+offset_bottom = 458.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Backside"
+script = ExtResource("4_mxxmp")
+Backside = true
+
+[node name="KARphin_Button" type="Button" parent="Intro_Screen"]
+offset_left = 879.0
+offset_top = 500.0
+offset_right = 1112.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "KARphin"
+script = ExtResource("4_mxxmp")
+KARphin = true
