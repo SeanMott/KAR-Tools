@@ -9,10 +9,11 @@ public partial class SetMigrationPath : Button
 	//ref nodes
 	[Export] FileDialog dialogWindow;
 	[Export] Label label;
+	[Export] AcceptDialog notUserFolder_PopUp;
 
 	public override void _Ready()
 	{
-		label.Text = "The path to the folder containing your R10 build.";
+		label.Text = "The path to the User folder you would like to port over.";
 	}
 
 	private void _on_pressed()
@@ -23,8 +24,20 @@ public partial class SetMigrationPath : Button
 
 	private void OnR10DirSelected(string dir)
 	{
-		installerSettings.R10Path = dir;
-		installerSettings.isMigrating = true;
-		label.Text = installerSettings.R10Path;
+		//reject if the ending isn't a User
+		System.IO.DirectoryInfo i = new System.IO.DirectoryInfo(dir);
+		if(i.Name != "User")
+		{
+			notUserFolder_PopUp.Popup();
+			//notUserFolder_PopUp.PopupCentered();
+		}
+
+		//if it's a proper user folder
+		else
+		{
+			installerSettings.userFolderToPortOver = dir;
+			installerSettings.isMigrating = true;
+			label.Text = installerSettings.userFolderToPortOver;
+		}
 	}
 }

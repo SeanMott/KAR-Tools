@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdkxdm41k6urc"]
+[gd_scene load_steps=14 format=3 uid="uid://bdkxdm41k6urc"]
 
 [ext_resource type="Texture2D" uid="uid://t2ale2427cgc" path="res://Images/kaaby.jpg" id="1_blqef"]
 [ext_resource type="FontFile" uid="uid://boxkp7ds8ypq3" path="res://Fonts/A-OTF-FolkPro-Bold.otf" id="1_j6vjs"]
 [ext_resource type="FontFile" uid="uid://bfssbuellovur" path="res://Fonts/A-OTF-FolkPro-Regular.otf" id="1_xjx6n"]
-[ext_resource type="Script" path="res://Scripts/UpdateContent.cs" id="4_mxxmp"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadKARphin.cs" id="3_o2qhj"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadKW.cs" id="4_6thqg"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/ResetClient.cs" id="4_g8b2s"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadHPCodes.cs" id="5_wpipw"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadKARphinDev.cs" id="6_ikfex"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadBSCodes.cs" id="7_tntt2"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadNAKARCodes.cs" id="8_jnsku"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadJPKARCodes.cs" id="9_nnava"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadSkinPacks.cs" id="10_gw673"]
+[ext_resource type="Script" path="res://Scripts/DownloadContent/DownloadKARDont.cs" id="11_5wipk"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -30,53 +39,236 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Intro_Screen" type="Node2D" parent="."]
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+clip_tabs = false
 
-[node name="Intro" type="Label" parent="Intro_Screen"]
+[node name="Net Client" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="KARphin_Button" type="Button" parent="TabContainer/Net Client"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 270.0
+offset_right = 280.0
+offset_bottom = 345.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "KARphin"
+script = ExtResource("3_o2qhj")
+
+[node name="KW_Button" type="Button" parent="TabContainer/Net Client"]
+layout_mode = 0
+offset_left = 889.0
+offset_top = 270.0
+offset_right = 1122.0
+offset_bottom = 345.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "KAR Workshop"
+script = ExtResource("4_6thqg")
+
+[node name="Reset_Button" type="Button" parent="TabContainer/Net Client"]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 397.0
+offset_right = 707.0
+offset_bottom = 472.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Reset Clients"
+script = ExtResource("4_g8b2s")
+
+[node name="Intro" type="Label" parent="TabContainer/Net Client"]
+layout_mode = 0
 offset_left = 32.0
-offset_top = 17.0
+offset_top = 21.0
 offset_right = 1120.0
-offset_bottom = 114.0
+offset_bottom = 238.0
 theme_override_fonts/font = ExtResource("1_xjx6n")
 text = "----Welcome to the KARphin Updater----
 
 To update KARphin, press \"KARphin\"
 
-To Update Backside Gekko Codes, press \"Backside Codes\"
+To update KAR Workshop, press \"KAR Workshop\"
 
-To Update Backside  itself, press \"Backside\"
+In case you need a fresh install, click \"Reset Clients\" this WILL NUKE your CLIENTS folder.
+Any Skin Packs you had installed, will have to be re-installed. A back up copy exists in the Mod folder. Or you can use the Updater to install them.
 
 If you need to update your Updater, either run the Bootsrapper and generate a new set up/use Migrate to port over your settings.
 
 Or get the latest build of the Updater in the Git Release. If unsure where that is, check the Discord or find Jas."
 horizontal_alignment = 1
 
-[node name="BCodes_Button" type="Button" parent="Intro_Screen"]
-offset_left = 29.0
-offset_top = 500.0
-offset_right = 262.0
-offset_bottom = 575.0
+[node name="Gekko Codes" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HP_GC_Button" type="Button" parent="TabContainer/Gekko Codes"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 270.0
+offset_right = 280.0
+offset_bottom = 345.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Hack Pack Codes"
+script = ExtResource("5_wpipw")
+
+[node name="BS_GC_Button" type="Button" parent="TabContainer/Gekko Codes"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 388.0
+offset_right = 282.0
+offset_bottom = 463.0
 theme_override_fonts/font = ExtResource("1_j6vjs")
 text = "Backside Codes"
-script = ExtResource("4_mxxmp")
-BacksideCodes = true
+script = ExtResource("7_tntt2")
 
-[node name="Backside_Button" type="Button" parent="Intro_Screen"]
-offset_left = 29.0
-offset_top = 383.0
-offset_right = 262.0
-offset_bottom = 458.0
+[node name="NA_KAR_GC_Button" type="Button" parent="TabContainer/Gekko Codes"]
+layout_mode = 0
+offset_left = 886.0
+offset_top = 270.0
+offset_right = 1119.0
+offset_bottom = 345.0
 theme_override_fonts/font = ExtResource("1_j6vjs")
-text = "Backside"
-script = ExtResource("4_mxxmp")
-Backside = true
+text = "NA KAR Codes"
+script = ExtResource("8_jnsku")
 
-[node name="KARphin_Button" type="Button" parent="Intro_Screen"]
-offset_left = 879.0
-offset_top = 500.0
-offset_right = 1112.0
-offset_bottom = 575.0
+[node name="JP_KAR_GC_Button" type="Button" parent="TabContainer/Gekko Codes"]
+layout_mode = 0
+offset_left = 886.0
+offset_top = 388.0
+offset_right = 1119.0
+offset_bottom = 463.0
 theme_override_fonts/font = ExtResource("1_j6vjs")
-text = "KARphin"
-script = ExtResource("4_mxxmp")
-KARphin = true
+text = "JP KAR Codes"
+script = ExtResource("9_nnava")
+
+[node name="Intro" type="Label" parent="TabContainer/Gekko Codes"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 21.0
+offset_right = 1120.0
+offset_bottom = 238.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "To update Hack Pack Gekko Codes, press \"Hack Pack Codes\"
+
+To update Backside Gekko Codes, press \"Backside Codes\"
+
+To update Vanilla KAR Gekko Codes, press either \"JP KAR Codes\" or \"NA KAR Codes\" for Japanese and North American regions
+
+If you need to update your Updater, either run the Bootsrapper and generate a new set up/use Migrate to port over your settings.
+
+Or get the latest build of the Updater in the Git Release. If unsure where that is, check the Discord or find Jas."
+horizontal_alignment = 1
+
+[node name="Extras" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="SkinPacks_Button" type="Button" parent="TabContainer/Extras"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 270.0
+offset_right = 280.0
+offset_bottom = 345.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Skin Packs"
+script = ExtResource("10_gw673")
+
+[node name="KARDont_Button" type="Button" parent="TabContainer/Extras"]
+layout_mode = 0
+offset_left = 870.0
+offset_top = 270.0
+offset_right = 1103.0
+offset_bottom = 345.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "KARDon't"
+script = ExtResource("11_5wipk")
+
+[node name="Intro" type="Label" parent="TabContainer/Extras"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 21.0
+offset_right = 1120.0
+offset_bottom = 238.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "----Welcome to the KARphin Updater----
+
+To update Skin Packs, press \"Skin Packs\"
+
+To update KARDon't, press \"KARDon't\"
+
+If you need to update your Updater, either run the Bootsrapper and generate a new set up/use Migrate to port over your settings.
+
+Or get the latest build of the Updater in the Git Release. If unsure where that is, check the Discord or find Jas."
+horizontal_alignment = 1
+
+[node name="Tools" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HSDRaw_Button" type="Button" parent="TabContainer/Tools"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 151.0
+offset_right = 280.0
+offset_bottom = 226.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "HSDRaw"
+
+[node name="BlenderAddions_Button" type="Button" parent="TabContainer/Tools"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 270.0
+offset_right = 286.0
+offset_bottom = 345.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Blender Addions"
+
+[node name="Intro" type="Label" parent="TabContainer/Tools"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 21.0
+offset_right = 1120.0
+offset_bottom = 238.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "Downloads/Updates the mod tools
+
+CURRENTLY THIS PAGE DOES NOTHING, CHECK WITH A LATER UPDATE!!!!!!!
+
+If you need to update your Updater, either run the Bootsrapper and generate a new set up/use Migrate to port over your settings.
+
+Or get the latest build of the Updater in the Git Release. If unsure where that is, check the Discord or find Jas."
+horizontal_alignment = 1
+
+[node name="Dev" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="KARphinDev_Button" type="Button" parent="TabContainer/Dev"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 270.0
+offset_right = 280.0
+offset_bottom = 345.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "KARphin Dev"
+script = ExtResource("6_ikfex")
+
+[node name="Intro" type="Label" parent="TabContainer/Dev"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 21.0
+offset_right = 1120.0
+offset_bottom = 238.0
+theme_override_fonts/font = ExtResource("1_xjx6n")
+text = "----Welcome to the KARphin Updater----
+
+This is for updating dev builds. For release builds go to Net Client tab.
+
+To update KARphin, press \"KARphin Dev\"
+
+If you need to update your Updater, either run the Bootsrapper and generate a new set up/use Migrate to port over your settings.
+
+Or get the latest build of the Updater in the Git Release. If unsure where that is, check the Discord or find Jas."
+horizontal_alignment = 1

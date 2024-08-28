@@ -118,7 +118,7 @@ offset_bottom = 67.0
 theme_override_fonts/font = ExtResource("1_xjx6n")
 text = "KW Path: \"\""
 
-[node name="Next_Button" type="Button" parent="Paths_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+[node name="Next_Button" type="Button" parent="Paths_Screen" node_paths=PackedStringArray("currentScene", "nextScene", "noInstallFolder_PopUp")]
 offset_left = 748.0
 offset_top = 500.0
 offset_right = 981.0
@@ -128,6 +128,26 @@ text = "Next"
 script = ExtResource("4_l61tw")
 currentScene = NodePath("..")
 nextScene = NodePath("../../ExtraGoodies_Screen")
+throwWarningIfNoInstallDir = true
+installerData = ExtResource("5_x3dr4")
+noInstallFolder_PopUp = NodePath("NotInstallDir")
+
+[node name="NotInstallDir" type="AcceptDialog" parent="Paths_Screen/Next_Button"]
+title = "No Install Dir!!!!!"
+position = Vector2i(765, 390)
+size = Vector2i(272, 100)
+dialog_text = "You must set a folder to install to."
+
+[node name="Back_Button" type="Button" parent="Paths_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 70.0
+offset_top = 500.0
+offset_right = 303.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Back"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../Intro_Screen")
 
 [node name="Migrate_Screen" type="Node2D" parent="."]
 visible = false
@@ -172,7 +192,7 @@ offset_bottom = 67.0
 theme_override_fonts/font = ExtResource("1_xjx6n")
 text = "KW Path: \"\""
 
-[node name="Next_Button" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+[node name="Next_Button" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("currentScene", "nextScene", "noInstallFolder_PopUp", "noUserFolder_PopUp")]
 offset_left = 748.0
 offset_top = 500.0
 offset_right = 981.0
@@ -182,11 +202,39 @@ text = "Next"
 script = ExtResource("4_l61tw")
 currentScene = NodePath("..")
 nextScene = NodePath("../../ExtraGoodies_Screen")
+throwWarningIfNoUserDir = true
+throwWarningIfNoInstallDir = true
+installerData = ExtResource("5_x3dr4")
+noInstallFolder_PopUp = NodePath("NotInstallDir")
+noUserFolder_PopUp = NodePath("NoR10Set")
 
-[node name="Set_R10" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("dialogWindow", "label")]
-offset_left = 83.0
+[node name="NoR10Set" type="AcceptDialog" parent="Migrate_Screen/Next_Button"]
+title = "Migration Error!"
+position = Vector2i(765, 390)
+size = Vector2i(272, 100)
+dialog_text = "If you want to Migrate you got to set the User folder. If you just want a fresh install. Go Back and click New."
+
+[node name="NotInstallDir" type="AcceptDialog" parent="Migrate_Screen/Next_Button"]
+title = "No Install Dir!!!!"
+position = Vector2i(765, 390)
+size = Vector2i(272, 100)
+dialog_text = "You must set a folder to install to."
+
+[node name="Back_Button" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 91.0
+offset_top = 500.0
+offset_right = 324.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Back"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../Intro_Screen")
+
+[node name="Set_R10" type="Button" parent="Migrate_Screen" node_paths=PackedStringArray("dialogWindow", "label", "notUserFolder_PopUp")]
+offset_left = 84.27
 offset_top = 362.0
-offset_right = 316.0
+offset_right = 317.27
 offset_bottom = 437.0
 theme_override_fonts/font = ExtResource("1_j6vjs")
 text = "R10 Folder"
@@ -194,6 +242,7 @@ script = ExtResource("7_dq06y")
 installerSettings = ExtResource("5_x3dr4")
 dialogWindow = NodePath("FileDialog")
 label = NodePath("R10_Path")
+notUserFolder_PopUp = NodePath("AcceptDialog")
 
 [node name="FileDialog" type="FileDialog" parent="Migrate_Screen/Set_R10"]
 title = "Open a Directory"
@@ -213,6 +262,11 @@ offset_right = 1348.0
 offset_bottom = 67.0
 theme_override_fonts/font = ExtResource("1_xjx6n")
 text = "R10 Path: \"\""
+
+[node name="AcceptDialog" type="AcceptDialog" parent="Migrate_Screen/Set_R10"]
+position = Vector2i(765, 390)
+size = Vector2i(272, 100)
+dialog_text = "You must set it to the User folder"
 
 [node name="ExtraGoodies_Screen" type="Node2D" parent="."]
 visible = false
@@ -239,20 +293,30 @@ script = ExtResource("4_l61tw")
 currentScene = NodePath("..")
 nextScene = NodePath("../../DownloadProgress_Screen")
 
+[node name="Back_Button" type="Button" parent="ExtraGoodies_Screen" node_paths=PackedStringArray("currentScene", "nextScene")]
+offset_left = 82.0
+offset_top = 500.0
+offset_right = 315.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_j6vjs")
+text = "Back"
+script = ExtResource("4_l61tw")
+currentScene = NodePath("..")
+nextScene = NodePath("../../Paths_Screen")
+
 [node name="GCAdapter_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
 offset_left = 181.0
 offset_top = 225.0
 offset_right = 925.0
 offset_bottom = 256.0
 disabled = true
-text = "Install GC/Wii adapter drivers. (Only if you haven't installed them yourself or through Slippie)"
+text = "Install GC/Wii adapter drivers. (Only if you haven't installed them yourself or through Slippi)"
 
 [node name="KARDont_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
 offset_left = 181.0
 offset_top = 263.0
 offset_right = 925.0
 offset_bottom = 294.0
-disabled = true
 text = "Get KARDont (custom KAR Nintendon't for Wii and Wii U)"
 
 [node name="NoHPOrBS_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
@@ -261,7 +325,7 @@ offset_top = 304.0
 offset_right = 925.0
 offset_bottom = 335.0
 button_pressed = true
-text = "DON'T install Hack Pack and Backside V2"
+text = "Install Hack Pack and Backside V2"
 
 [node name="BSSkins_Checkbox" type="CheckBox" parent="ExtraGoodies_Screen"]
 offset_left = 181.0

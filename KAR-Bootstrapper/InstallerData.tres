@@ -4,7 +4,10 @@
 
 [resource]
 script = ExtResource("1_hevck")
-installPath = "C:\\Users\\Jas\\Desktop\\KARInstaller_Test"
-KARDontShouldInstall = false
+installPath = ""
+userFolderToPortOver = ""
+isMigrating = false
+downloadRoms = true
+downloadSkinPacks = false
+KARDontDownload = false
 GCAdapterDriversShouldInstall = false
-KWShouldAutoRun = true
