@@ -131,14 +131,11 @@ public partial class DownloadManager : Node2D
 		}
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.internalName, content.ContentDownloadURL_Windows,
+		installDir).GetAwaiter().GetResult();
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe");
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/UncompressedPackages/" + content.internalName,
@@ -163,14 +160,11 @@ public partial class DownloadManager : Node2D
 		}
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.internalName, content.ContentDownloadURL_Windows,
+		installDir).GetAwaiter().GetResult();
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe");
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/UncompressedPackages/" + content.internalName,
@@ -195,14 +189,11 @@ public partial class DownloadManager : Node2D
 		}
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.internalName, content.ContentDownloadURL_Windows,
+		installDir).GetAwaiter().GetResult();
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe");
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/UncompressedPackages/" + content.internalName,
@@ -227,14 +218,11 @@ public partial class DownloadManager : Node2D
 		}
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.internalName, content.ContentDownloadURL_Windows,
+		installDir).GetAwaiter().GetResult();
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe");
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/UncompressedPackages/" + content.internalName,
@@ -259,14 +247,11 @@ public partial class DownloadManager : Node2D
 		}
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.internalName, content.ContentDownloadURL_Windows,
+		installDir).GetAwaiter().GetResult();
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe");
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/UncompressedPackages/" + content.internalName,
@@ -291,14 +276,11 @@ public partial class DownloadManager : Node2D
 		}
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.internalName, content.ContentDownloadURL_Windows,
+		installDir).GetAwaiter().GetResult();
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe");
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/UncompressedPackages/" + content.internalName,
@@ -382,7 +364,7 @@ public partial class DownloadManager : Node2D
 		p.WaitForExit();
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe");
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/" + content.internalName,

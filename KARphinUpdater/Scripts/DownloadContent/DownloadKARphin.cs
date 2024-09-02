@@ -14,34 +14,30 @@ public partial class DownloadKARphin : Button
 	static public void GetKARphin(string installDir, string toolsDir)
 	{
 		//attempt to load KWQI data, if not found use a baked in URL
-        string KWQIFilePath = "KWQI/KARphin.KWQI";
-        KWQI content = new KWQI();
-        if(!File.Exists(KWQIFilePath))
-        {
-            content.internalName = "KARphin";
-		    content.ContentDownloadURL_Windows = "https://github.com/SeanMott/KARphin_Modern/releases/download/latest/KARphin.br";
-		    KWQI.WriteKWQI(KWStructure.GenerateKWStructure_Directory_KWQI(installDir), content.internalName, content);
-        }
-        else
-        {
-            content = KWQI.LoadKWQI(KWQIFilePath);
-        }
+		string KWQIFilePath = "KWQI/KARphin.KWQI";
+		KWQI content = new KWQI();
+		if(!File.Exists(KWQIFilePath))
+		{
+			content.internalName = "KARphin";
+			content.ContentDownloadURL_Windows = "https://github.com/SeanMott/KARphin_Modern/releases/download/latest/KARphin.tar.gz";
+			KWQI.WriteKWQI(KWStructure.GenerateKWStructure_Directory_KWQI(installDir), content.internalName, content);
+		}
+		else
+		{
+			content = KWQI.LoadKWQI(KWQIFilePath);
+		}
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.ContentDownloadURL_Windows, installDir, content.internalName);
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, false);
 
 		//installs the new content into the netplay client directory
-		KWQIPackaging.CopyAllDirContents(installDir + "/" + content.internalName,
-		KWStructure.GenerateKWStructure_Directory_NetplayClients(installDir));
-		if(Directory.Exists(installDir + "/" + content.internalName))
-			Directory.Delete(installDir + "/" + content.internalName, true);
+		//KWQIPackaging.CopyAllDirContents(installDir + "/" + content.internalName,
+		//KWStructure.GenerateKWStructure_Directory_NetplayClients(installDir));
+		//if(Directory.Exists(installDir + "/" + content.internalName))
+		//	Directory.Delete(installDir + "/" + content.internalName, true);
 	}
 
 	//runs KARphin

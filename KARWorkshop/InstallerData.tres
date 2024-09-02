@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InstallerData" load_steps=2 format=3 uid="uid://c8wdrh5eq6udk"]
+
+[ext_resource type="Script" path="res://DataObjects/InstallerData.cs" id="1_hevck"]
+
+[resource]
+script = ExtResource("1_hevck")
+installPath = "C:\\Users\\Jas\\Desktop\\KARInstaller_Test"
+KARDontShouldInstall = false
+GCAdapterDriversShouldInstall = false
+KWShouldAutoRun = true

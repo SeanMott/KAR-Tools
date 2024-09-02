@@ -1,0 +1,133 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdkxdm41k6urc"]
+
+[ext_resource type="Script" path="res://Scripts/AutoDownload.cs" id="1_843bb"]
+[ext_resource type="Texture2D" uid="uid://t2ale2427cgc" path="res://Images/kaaby.jpg" id="1_blqef"]
+[ext_resource type="Script" path="res://Scripts/Menus/Netplay.cs" id="3_p6vvs"]
+[ext_resource type="FontFile" uid="uid://boxkp7ds8ypq3" path="res://Fonts/A-OTF-FolkPro-Bold.otf" id="3_rusbx"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_843bb")
+
+[node name="Sprite2D" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_blqef")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 725.0
+offset_bottom = 40.0
+
+[node name="Netplay" type="Control" parent="Panel/TabContainer"]
+layout_mode = 2
+script = ExtResource("3_p6vvs")
+
+[node name="Host Match" type="Button" parent="Panel/TabContainer/Netplay"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 115.0
+offset_right = 235.0
+offset_bottom = 190.0
+theme_override_fonts/font = ExtResource("3_rusbx")
+text = "Host"
+
+[node name="Join Match" type="Button" parent="Panel/TabContainer/Netplay"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 115.0
+offset_right = 600.0
+offset_bottom = 190.0
+theme_override_fonts/font = ExtResource("3_rusbx")
+text = "Join"
+
+[node name="Spectate" type="Button" parent="Panel/TabContainer/Netplay"]
+layout_mode = 0
+offset_left = 850.0
+offset_top = 115.0
+offset_right = 1000.0
+offset_bottom = 190.0
+theme_override_fonts/font = ExtResource("3_rusbx")
+text = "Spectate"
+
+[node name="Reset Client" type="Button" parent="Panel/TabContainer/Netplay"]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 350.0
+offset_right = 405.0
+offset_bottom = 425.0
+theme_override_fonts/font = ExtResource("3_rusbx")
+text = "Reset Client Data"
+
+[node name="Configure" type="Button" parent="Panel/TabContainer/Netplay"]
+layout_mode = 0
+offset_left = 780.0
+offset_top = 350.0
+offset_right = 935.0
+offset_bottom = 425.0
+theme_override_fonts/font = ExtResource("3_rusbx")
+text = "Configure Client"
+
+[node name="Client Option" type="OptionButton" parent="Panel/TabContainer/Netplay"]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 350.0
+offset_right = 695.0
+offset_bottom = 370.0
+item_count = 3
+selected = 0
+allow_reselect = true
+popup/item_0/text = "KARphin"
+popup/item_0/id = 0
+popup/item_1/text = "Legacy"
+popup/item_1/id = 1
+popup/item_2/text = "Dev"
+popup/item_2/id = 2
+
+[node name="Streaming" type="Control" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Replays" type="Control" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Gekko Codes" type="Control" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Console Mirror" type="Control" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="How To Play" type="Control" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Account" type="Control" parent="Panel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="Panel/TabContainer/Netplay/Host Match" to="Panel/TabContainer/Netplay" method="_on_host_match_pressed"]
+[connection signal="pressed" from="Panel/TabContainer/Netplay/Join Match" to="Panel/TabContainer/Netplay" method="_on_join_match_pressed"]
+[connection signal="pressed" from="Panel/TabContainer/Netplay/Spectate" to="Panel/TabContainer/Netplay" method="_on_spectate_pressed"]
+[connection signal="pressed" from="Panel/TabContainer/Netplay/Reset Client" to="Panel/TabContainer/Netplay" method="_on_reset_client_pressed"]
+[connection signal="pressed" from="Panel/TabContainer/Netplay/Configure" to="Panel/TabContainer/Netplay" method="_on_configure_pressed"]
+[connection signal="item_selected" from="Panel/TabContainer/Netplay/Client Option" to="Panel/TabContainer/Netplay" method="_on_client_option_item_selected"]

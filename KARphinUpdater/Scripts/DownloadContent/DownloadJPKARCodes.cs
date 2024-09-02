@@ -35,10 +35,6 @@ public partial class DownloadJPKARCodes : Button
         DirectoryInfo gekkoCodeDstFolder = Directory.CreateDirectory(clientsFolder + "/User/GameSettings");
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_GekkoCodes_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		gekkoCodeDstFolder.FullName);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_GekkoCodes_Windows(content.ContentDownloadURL_Windows, content.internalName, gekkoCodeDstFolder.FullName);
 	}
 }

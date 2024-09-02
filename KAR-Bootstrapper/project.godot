@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [display]
 
 window/subwindows/embed_subwindows=false
+mouse_cursor/custom_image="res://Images/KARphin_Cursor.png"
+mouse_cursor/tooltip_position_offset=Vector2(0, 0)
 
 [dotnet]
 

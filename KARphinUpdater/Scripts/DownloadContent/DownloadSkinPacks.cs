@@ -22,7 +22,7 @@ public partial class DownloadSkinPacks : Button
         if(!File.Exists(KWQIFilePath))
         {
             content.internalName = "SkinPacks";
-		    content.ContentDownloadURL_Windows = "https://github.com/SeanMott/KAR-Workshop/releases/download/KWQI-Data-Dev/SkinPacks.br";
+		    content.ContentDownloadURL_Windows = "https://github.com/SeanMott/KAR-Workshop/releases/download/KWQI-Data-Dev/SkinPacks.tar.gz";
 		    KWQI.WriteKWQI(KWStructure.GenerateKWStructure_Directory_KWQI(installDir), content.internalName, content);
         }
         else
@@ -31,14 +31,10 @@ public partial class DownloadSkinPacks : Button
         }
 
 		//downloads
-		Process p = new Process();
-		p.StartInfo.UseShellExecute = true;
-		KWQIPackaging.DownloadContent_Archive_Windows(out p, toolsDir + "Duma.exe", content.internalName, content.ContentDownloadURL_Windows,
-		installDir);
-		p.WaitForExit();
+		KWQIPackaging.DownloadContent_Archive_Windows(content.ContentDownloadURL_Windows, installDir, content.internalName);
 
 		//extracts
-		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, installDir, true, toolsDir + "brotli.exe", toolsDir + "7z.exe");
+		KWQIPackaging.UnpackArchive_Windows(installDir, content.internalName, true);
 
 		//installs the new content into the netplay client directory
 		KWQIPackaging.CopyAllDirContents(installDir + "/UncompressedPackages/" + content.internalName,
