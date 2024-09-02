@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdkxdm41k6urc"]
+[gd_scene load_steps=6 format=3 uid="uid://bdkxdm41k6urc"]
 
 [ext_resource type="Script" path="res://Scripts/AutoDownload.cs" id="1_843bb"]
 [ext_resource type="Texture2D" uid="uid://t2ale2427cgc" path="res://Images/kaaby.jpg" id="1_blqef"]
 [ext_resource type="Script" path="res://Scripts/Menus/Netplay.cs" id="3_p6vvs"]
 [ext_resource type="FontFile" uid="uid://boxkp7ds8ypq3" path="res://Fonts/A-OTF-FolkPro-Bold.otf" id="3_rusbx"]
+[ext_resource type="Script" path="res://Scripts/RepairVCppDist.cs" id="5_l4rpm"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -33,10 +34,12 @@ grow_vertical = 2
 
 [node name="TabContainer" type="TabContainer" parent="Panel"]
 layout_mode = 0
-offset_right = 725.0
+offset_right = 873.0
 offset_bottom = 40.0
+current_tab = 6
 
 [node name="Netplay" type="Control" parent="Panel/TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("3_p6vvs")
 
@@ -120,6 +123,28 @@ layout_mode = 2
 [node name="How To Play" type="Control" parent="Panel/TabContainer"]
 visible = false
 layout_mode = 2
+
+[node name="Troubleshooting" type="Control" parent="Panel/TabContainer"]
+layout_mode = 2
+
+[node name="VC Dist" type="Button" parent="Panel/TabContainer/Troubleshooting"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 172.0
+offset_right = 189.0
+offset_bottom = 247.0
+theme_override_fonts/font = ExtResource("3_rusbx")
+text = "Repair Visual C++ Re-dist"
+script = ExtResource("5_l4rpm")
+
+[node name="Label" type="Label" parent="Panel/TabContainer/Troubleshooting"]
+layout_mode = 0
+offset_top = 63.0
+offset_right = 40.0
+offset_bottom = 86.0
+theme_override_fonts/font = ExtResource("3_rusbx")
+text = "If your KARphin refuses to boot, press \"Repair Visual C++ Re-dist\", allow the program it attempts to load.
+And click \"Repair\" when prompted."
 
 [node name="Account" type="Control" parent="Panel/TabContainer"]
 visible = false

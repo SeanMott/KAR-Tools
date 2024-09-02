@@ -10,7 +10,7 @@ public partial class AutoDownload : Node
 	public override void _Ready()
 	{
 		//the URL to the build date file for KARphin
-		string fileUrl = "https://github.com/SeanMott/KARphin_Modern/releases/download/latest/KARphinBuild.txt";
+		string fileUrl = "https://github.com/SeanMott/KARphin_Modern/releases/download/latest/new_KARphinBuild.txt";
 
 		//gets the file
 		using (WebClient client = new WebClient())
@@ -37,7 +37,8 @@ public partial class AutoDownload : Node
 		if(newBuildDate != currentBuild)
 		{
 			//downloads KARphin
-			DownloadKARphin.GetKARphin(new DirectoryInfo(System.Environment.CurrentDirectory), KWStructure.GetSupportTool_Brotli_Windows(new DirectoryInfo(System.Environment.CurrentDirectory)));
+			KWQICommonInstalls.GetLatest_KARphin(KWStructure.GetSupportTool_Brotli_Windows(new DirectoryInfo(System.Environment.CurrentDirectory)),
+			KWStructure.GenerateKWStructure_Directory_NetplayClients(new DirectoryInfo(System.Environment.CurrentDirectory)));
 
 			//updates the build data
 			File.WriteAllText("KARphinBuild.txt", newBuildDate);
