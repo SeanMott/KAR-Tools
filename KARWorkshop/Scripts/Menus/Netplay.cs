@@ -99,15 +99,16 @@ public partial class Netplay : Node
 		KWQICommonInstalls.GetLatest_GekkoCodes_HackPack(KWStructure.GenerateKWStructure_SubDirectory_Clients_User_GameSettings(installDir));
 
 		//generate Dolphin config
-		string config = "[General]ISOPaths = 1\nRecursiveISOPaths = True\nISOPath0 = " +
-			installDir + "/ROMs\n";
+		string config = "[Analytics]\nID = 9fbc80be625d265e9c906466779b9cec\n[NetPlay]\nTraversalChoice = traversal\nChunkedUploadLimit = 0x00000bb8\nConnectPort = 0x0a42\nEnableChunkedUploadLimit = False\nHostCode = 00000000\nHostPort = 0x0a42\nIndexName = KAR\nIndexPassword = \nIndexRegion = NA\nNickname = Kirby\nUseIndex = True\nUseUPNP = False\n[Display]\nDisableScreenSaver = True\n[General]\nHotkeysRequireFocus = True\nISOPath0 = " +
+			installDir + "/ROMs\nISOPaths = 1\n[Interface]\nConfirmStop = True\nOnScreenDisplayMessages = True\nShowActiveTitle = True\nUseBuiltinTitleDatabase = True\nUsePanicHandlers = True\n[Core]\nAudioLatency = 20\nAudioStretch = False\nAudioStretchMaxLatency = 80\nDPL2Decoder = False\nDPL2Quality = 2\nDSPHLE = True\n[DSP]\nEnableJIT = False\nVolume = 100\nWASAPIDevice = ";
+		
+			DirectoryInfo configFolder = new DirectoryInfo(KWStructure.GenerateKWStructure_SubDirectory_Clients_User(installDir) + "/Config");
+			configFolder.Create();
 
-		//generates the folder structure
-		DirectoryInfo configFolder = Directory.CreateDirectory(KWStructure.GenerateKWStructure_SubDirectory_Clients_User(installDir) + "/Config");
-
-		System.IO.StreamWriter file = new System.IO.StreamWriter(configFolder + "/Dolphin.ini");
-		file.Write(config);
-		file.Close();
+			System.IO.StreamWriter file = new System.IO.StreamWriter(
+				configFolder.FullName + "/Dolphin.ini");
+			file.Write(config);
+			file.Close();
 
 		//gets KARphin
 		KWQICommonInstalls.GetLatest_KARphin(brotliEXE, netplay);

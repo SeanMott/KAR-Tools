@@ -13,7 +13,9 @@ config_version=5
 config/name="KAR Workshop"
 run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
-config/icon="res://wifi.png"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://Images/KAR_Online_Color.png"
+config/icon="res://Images/423px-KarDelete.png"
 
 [dotnet]
 
