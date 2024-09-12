@@ -82,11 +82,11 @@ public partial class DownloadManager : Node2D
 	}
 
 	//downloads and unpacks the skin packs
-	void DownloadAndUnpack_SkinPacks(FileInfo brotliEXE, DirectoryInfo installDir)
+	void DownloadAndUnpack_SkinPacks(DirectoryInfo installDir)
 	{
 		//downloads
 			DirectoryInfo skinPackDir = KWStructure.GenerateKWStructure_SubDirectory_Mod_SkinPacks(installDir);
-			KWQICommonInstalls.GetLatest_SkinPacks(brotliEXE, skinPackDir);
+			KWQICommonInstalls.GetLatest_SkinPacks(skinPackDir);
 
 			//installs the new content into the netplay client directory
 			DirectoryInfo user = new DirectoryInfo(KWStructure.GenerateKWStructure_SubDirectory_Clients_User(installDir) + "/Load/Textures/KBSE01/");
@@ -95,11 +95,24 @@ public partial class DownloadManager : Node2D
 					new DirectoryInfo(user + "[L] B2 Non Outline Skins"));
 			KWInstaller.CopyAllDirContents(new DirectoryInfo(skinPackDir + "/[R] B2 Outline Skins"),
 				new DirectoryInfo(user + "[R] B2 Outline Skins"));
+
+			//installs the new content into the netplay client legacy directory
+			user = new DirectoryInfo(KWStructure.GenerateKWStructure_SubDirectory_Clients_User(installDir) + "Legacy/User/Load/Textures/KBSE01/");
+
+			KWInstaller.CopyAllDirContents(new DirectoryInfo(skinPackDir + "/[L] B2 Non Outline Skins"),
+					new DirectoryInfo(user + "[L] B2 Non Outline Skins"));
+			KWInstaller.CopyAllDirContents(new DirectoryInfo(skinPackDir + "/[R] B2 Outline Skins"),
+				new DirectoryInfo(user + "[R] B2 Outline Skins"));
 	}
 
 	//downloads the gekko codes
-	void DownloadAndUnpack_GekkoCodes(FileInfo brotliEXE, DirectoryInfo installDir)
+	void DownloadAndUnpack_GekkoCodes(DirectoryInfo installDir)
 	{
+		//hack pack
+		KWQICommonInstalls.GetLatest_GekkoCodes_HackPack(KWStructure.GenerateKWStructure_SubDirectory_Clients_User_GameSettings(installDir));
+		//backside
+		KWQICommonInstalls.GetLatest_GekkoCodes_Backside(KWStructure.GenerateKWStructure_SubDirectory_Clients_User_GameSettings(installDir));
+
 		//hack pack
 		KWQICommonInstalls.GetLatest_GekkoCodes_HackPack(KWStructure.GenerateKWStructure_SubDirectory_Clients_User_GameSettings(installDir));
 		//backside
@@ -140,9 +153,9 @@ public partial class DownloadManager : Node2D
 		else //write the data for the ROM locates
 		{
 			string config = "[Analytics]\nID = 9fbc80be625d265e9c906466779b9cec\n[NetPlay]\nTraversalChoice = traversal\nChunkedUploadLimit = 0x00000bb8\nConnectPort = 0x0a42\nEnableChunkedUploadLimit = False\nHostCode = 00000000\nHostPort = 0x0a42\nIndexName = KAR\nIndexPassword = \nIndexRegion = NA\nNickname = Kirby\nUseIndex = True\nUseUPNP = False\n[Display]\nDisableScreenSaver = True\n[General]\nHotkeysRequireFocus = True\nISOPath0 = " +
-			installDir + "/ROMs\nISOPaths = 1\n[Interface]\nConfirmStop = True\nOnScreenDisplayMessages = True\nShowActiveTitle = True\nUseBuiltinTitleDatabase = True\nUsePanicHandlers = True\n[Core]\nAudioLatency = 20\nAudioStretch = False\nAudioStretchMaxLatency = 80\nDPL2Decoder = False\nDPL2Quality = 2\nDSPHLE = True\n[DSP]\nEnableJIT = False\nVolume = 100\nWASAPIDevice = ";
+				installDir + "/ROMs\nISOPaths = 1\n[Interface]\nConfirmStop = True\nOnScreenDisplayMessages = True\nShowActiveTitle = True\nUseBuiltinTitleDatabase = True\nUsePanicHandlers = True\n[Core]\nAudioLatency = 20\nAudioStretch = False\nAudioStretchMaxLatency = 80\nDPL2Decoder = False\nDPL2Quality = 2\nDSPHLE = True\n[DSP]\nEnableJIT = False\nVolume = 100\nBackend = OpenAL\nWASAPIDevice = ";
 		
-			DirectoryInfo configFolder = new DirectoryInfo(KWStructure.GenerateKWStructure_SubDirectory_Clients_User(installDir) + "/Config");
+			DirectoryInfo configFolder = new DirectoryInfo(KWStructure.GenerateKWStructure_Directory_NetplayClients(installDir) + "/Legacy/User/Config");
 			configFolder.Create();
 
 			System.IO.StreamWriter file = new System.IO.StreamWriter(
@@ -154,7 +167,7 @@ public partial class DownloadManager : Node2D
 		//the queue of big downloads
 		const UInt16 BIG_DOWNLOAD_QUEUE_COUNT = 1;
 		System.Threading.Thread[] bigDownloadQueue = { //the functions for the downloads
-			new Thread(() =>KWQICommonInstalls.GetLatest_ClientDeps(brotli, KWStructure.GenerateKWStructure_Directory_NetplayClients(installDir))),
+			new Thread(() =>KWQICommonInstalls.GetLatest_ClientDeps(KWStructure.GenerateKWStructure_Directory_NetplayClients(installDir))),
 			//new Thread(() =>DownloadAndUnpack_ROMs(progDir, installDir))
 		};
 		bool[] bigDownloadQueue_isInQueue = { //what downloads are we getting
@@ -200,12 +213,12 @@ public partial class DownloadManager : Node2D
 		//the queue of tiny downloads
 		const UInt16 DOWNLOAD_QUEUE_COUNT = 6;
 		System.Threading.Thread[] downloadQueue = { //the functions for the downloads
-			new Thread(() =>DownloadAndUnpack_SkinPacks(brotli, installDir)),
-			new Thread(() =>DownloadAndUnpack_GekkoCodes(brotli, installDir)),
-			new Thread(() =>KWQICommonInstalls.GetLatest_KARUpdater(brotli, installDir)),
-			new Thread(() =>KWQICommonInstalls.GetLatest_Tools(brotli, KWStructure.GenerateKWStructure_Directory_Tools(installDir))),
-			new Thread(() =>KWQICommonInstalls.GetLatest_KARWorkshop(brotli, installDir)),
-			new Thread(() =>KWQICommonInstalls.GetLatest_KARDont(brotli, KWStructure.GenerateKWStructure_SubDirectory_Mod_Hombrew(installDir)))
+			new Thread(() =>DownloadAndUnpack_SkinPacks(installDir)),
+			new Thread(() =>DownloadAndUnpack_GekkoCodes(installDir)),
+			new Thread(() =>KWQICommonInstalls.GetLatest_KARUpdater(installDir)),
+			new Thread(() =>KWQICommonInstalls.GetLatest_Tools(KWStructure.GenerateKWStructure_Directory_Tools(installDir))),
+			new Thread(() =>KWQICommonInstalls.GetLatest_KARWorkshop(installDir)),
+			new Thread(() =>KWQICommonInstalls.GetLatest_KARDont(KWStructure.GenerateKWStructure_SubDirectory_Mod_Hombrew(installDir)))
 		};
 		bool[] downloadQueue_isInQueue = { //what downloads are we getting
 			false,
@@ -239,7 +252,7 @@ public partial class DownloadManager : Node2D
 			"Hack Pack and Backside Gekko Codes",
 			"Updater",
 			"Tools",
-			"KAR Workshop",
+			"KAR Launcher",
 			"KARDon't"
 		};
 
@@ -384,7 +397,7 @@ public partial class DownloadManager : Node2D
 		//runs KAR Workshop
 		var dolphin = new Process();
 		dolphin.StartInfo.UseShellExecute = true;
-		dolphin.StartInfo.FileName = installDir + "/KARWorkshop.exe";
+		dolphin.StartInfo.FileName = installDir + "/KAR Launcher.exe";
 		dolphin.StartInfo.WorkingDirectory = installDir.FullName;
 		dolphin.Start();
 	
