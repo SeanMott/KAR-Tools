@@ -211,16 +211,18 @@ public partial class DownloadManager : Node2D
  		currentBigDownloadIndex = BIG_DOWNLOAD_QUEUE_INDEX_CLIENT_DEPS;
 		
 		//the queue of tiny downloads
-		const UInt16 DOWNLOAD_QUEUE_COUNT = 6;
+		const UInt16 DOWNLOAD_QUEUE_COUNT = 7;
 		System.Threading.Thread[] downloadQueue = { //the functions for the downloads
 			new Thread(() =>DownloadAndUnpack_SkinPacks(installDir)),
 			new Thread(() =>DownloadAndUnpack_GekkoCodes(installDir)),
 			new Thread(() =>KWQICommonInstalls.GetLatest_KARUpdater(installDir)),
 			new Thread(() =>KWQICommonInstalls.GetLatest_Tools(KWStructure.GenerateKWStructure_Directory_Tools(installDir))),
-			new Thread(() =>KWQICommonInstalls.GetLatest_KARWorkshop(installDir)),
+			new Thread(() =>KWQICommonInstalls.GetLatest_KARLauncher(installDir)),
+			new Thread(() =>KWQICommonInstalls.GetLatest_BootUpdater(installDir)),
 			new Thread(() =>KWQICommonInstalls.GetLatest_KARDont(KWStructure.GenerateKWStructure_SubDirectory_Mod_Hombrew(installDir)))
 		};
 		bool[] downloadQueue_isInQueue = { //what downloads are we getting
+			false,
 			false,
 			false,
 			false,
@@ -235,10 +237,12 @@ public partial class DownloadManager : Node2D
 			false,
 			false,
 			false,
-			false
+			false,
+			false,
 		};
 
 		bool[] downloadQueue_isDone = { //what downloads are done
+			false,
 			false,
 			false,
 			false,
@@ -253,6 +257,7 @@ public partial class DownloadManager : Node2D
 			"Updater",
 			"Tools",
 			"KAR Launcher",
+			"KAR Boot Updater",
 			"KARDon't"
 		};
 
@@ -262,7 +267,8 @@ public partial class DownloadManager : Node2D
 		const UInt16 DOWNLOAD_QUEUE_INDEX_UPDATER = 2;
 		const UInt16 DOWNLOAD_QUEUE_INDEX_TOOLS = 3;
 		const UInt16 DOWNLOAD_QUEUE_INDEX_KAR_WORKSHOP = 4;
-		const UInt16 DOWNLOAD_QUEUE_INDEX_KARDONT = 5;
+		const UInt16 DOWNLOAD_QUEUE_INDEX_KAR_BOOT_UPDATER = 5;
+		const UInt16 DOWNLOAD_QUEUE_INDEX_KARDONT = 6;
 
 		UInt16 currentDownloadIndex = 0; //stores the current download we are working on
 
@@ -271,6 +277,7 @@ public partial class DownloadManager : Node2D
 		downloadQueue_isInQueue[DOWNLOAD_QUEUE_INDEX_UPDATER] = true;
 		downloadQueue_isInQueue[DOWNLOAD_QUEUE_INDEX_GEKKO_CODES] = true;
 		downloadQueue_isInQueue[DOWNLOAD_QUEUE_INDEX_KAR_WORKSHOP] = true;
+		downloadQueue_isInQueue[DOWNLOAD_QUEUE_INDEX_KAR_BOOT_UPDATER] = true;
 
 		//if we're downloading Skin Packs add another
 		downloadQueue_isInQueue[DOWNLOAD_QUEUE_INDEX_SKIN_PACKS] = installerData.downloadSkinPacks;
