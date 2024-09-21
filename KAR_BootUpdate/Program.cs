@@ -3,7 +3,42 @@ using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 using System.Net;
 using System.Text;
+using System.Runtime.CompilerServices;
 
+//kills the process
+static bool KillProcess(string processName)
+{
+    // Get all processes with the given name
+    Process[] processes = Process.GetProcessesByName(processName);
+    bool processNeedsToBeReOpened = false;
+
+    foreach (var process in processes)
+    {
+        processNeedsToBeReOpened = true;
+        try
+        {
+            // Try to close the process gracefully
+            process.CloseMainWindow();
+            process.WaitForExit(5000);  // Wait 5 seconds for the process to exit
+
+            if (!process.HasExited)
+            {
+                // If it hasn't exited, kill it forcefully
+                process.Kill();
+            }
+
+            Console.WriteLine($"{processName} closed successfully.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error closing {processName}: {ex.Message}");
+        }
+    }
+
+    return processNeedsToBeReOpened;
+}
+
+//entry point
 int main(String[] args)
 {
     //checks what argument was passed
@@ -25,19 +60,20 @@ int main(String[] args)
         if (!VersionsMatch)
         {
             //close the launcher process if it's currently running
-            Process[] processes = Process.GetProcesses();
-            Process launcherProcess = processes.FirstOrDefault(p => p.ProcessName == "KAR Launcher");
-            bool reopen = (launcherProcess != null ? true : false);
-            if (reopen)
-                launcherProcess.Kill();
-
+            bool reopen = KillProcess("KAR Launcher");
+            //Process[] processes = Process.GetProcesses();
+            //Process launcherProcess = processes.FirstOrDefault(p => p.ProcessName == "KAR Launcher");
+            //bool reopen = (launcherProcess != null ? true : false);
+            //if (reopen)
+            //    launcherProcess.Kill();
+            //
             //perform update
             KWQICommonInstalls.GetLatest_KARLauncher(new System.IO.DirectoryInfo(System.Environment.CurrentDirectory));
 
             //reopen the launcher
             if (reopen)
             {
-                launcherProcess = new Process();
+                Process launcherProcess = new Process();
                 launcherProcess.StartInfo.FileName = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory).FullName + "/KAR Launcher.exe";
                 launcherProcess.Start();
             }
@@ -60,11 +96,12 @@ int main(String[] args)
         if (!VersionsMatch)
         {
             //close the update process if it's currently running
-            Process[] processes = Process.GetProcesses();
-            Process launcherProcess = processes.FirstOrDefault(p => p.ProcessName == "KAR Updater");
-            bool reopen = (launcherProcess != null && !launcherProcess.HasExited ? true : false);
-            if (reopen)
-                launcherProcess.Kill();
+            bool reopen = KillProcess("KAR Updater");
+            //Process[] processes = Process.GetProcesses();
+            //Process launcherProcess = processes.FirstOrDefault(p => p.ProcessName == "KAR Updater");
+            //bool reopen = (launcherProcess != null && !launcherProcess.HasExited ? true : false);
+            //if (reopen)
+            //    launcherProcess.Kill();
 
             //perform update
             KWQICommonInstalls.GetLatest_KARUpdater(new System.IO.DirectoryInfo(System.Environment.CurrentDirectory));
@@ -72,7 +109,7 @@ int main(String[] args)
             //reopen the update
             if (reopen)
             {
-                launcherProcess = new Process();
+                Process launcherProcess = new Process();
                 launcherProcess.StartInfo.FileName = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory).FullName + "/KAR Updater.exe";
                 launcherProcess.Start();
             }
