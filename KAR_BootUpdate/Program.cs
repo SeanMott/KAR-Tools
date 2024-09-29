@@ -38,6 +38,8 @@ static bool KillProcess(string processName)
     return processNeedsToBeReOpened;
 }
 
+//the flags and what they do
+
 //entry point
 int main(String[] args)
 {
@@ -61,12 +63,7 @@ int main(String[] args)
         {
             //close the launcher process if it's currently running
             bool reopen = KillProcess("KAR Launcher");
-            //Process[] processes = Process.GetProcesses();
-            //Process launcherProcess = processes.FirstOrDefault(p => p.ProcessName == "KAR Launcher");
-            //bool reopen = (launcherProcess != null ? true : false);
-            //if (reopen)
-            //    launcherProcess.Kill();
-            //
+
             //perform update
             KWQICommonInstalls.GetLatest_KARLauncher(new System.IO.DirectoryInfo(System.Environment.CurrentDirectory));
 
@@ -80,7 +77,7 @@ int main(String[] args)
         }
 
         Console.WriteLine("Launcher done updating.");
-        //Console.ReadKey(true);
+
         return 0;
     }
 
@@ -97,11 +94,6 @@ int main(String[] args)
         {
             //close the update process if it's currently running
             bool reopen = KillProcess("KAR Updater");
-            //Process[] processes = Process.GetProcesses();
-            //Process launcherProcess = processes.FirstOrDefault(p => p.ProcessName == "KAR Updater");
-            //bool reopen = (launcherProcess != null && !launcherProcess.HasExited ? true : false);
-            //if (reopen)
-            //    launcherProcess.Kill();
 
             //perform update
             KWQICommonInstalls.GetLatest_KARUpdater(new System.IO.DirectoryInfo(System.Environment.CurrentDirectory));
@@ -116,7 +108,81 @@ int main(String[] args)
         }
 
         Console.WriteLine("Updater done updating.");
-        //Console.ReadKey(true);
+        return 0;
+    }
+
+    //gets the latest KARphin
+    else if (args[0] == "-KARphin")
+    {
+        Console.WriteLine("KARphin updating.....");
+
+        //checks for a new version
+        bool VersionsMatch = KWQIWebClient.CheckVersion_GitRelease("SeanMott", "KARphin_Modern", args[1]);
+        Console.WriteLine("KARphin " + (VersionsMatch ? "is already up to date" : "needs to be updated."));
+
+        if (!VersionsMatch)
+        {
+            //close the update process if it's currently running
+            bool reopen = KillProcess("KARphin");
+
+            //perform update
+            KWQICommonInstalls.GetLatest_KARphin(KWStructure.GenerateKWStructure_Directory_NetplayClients(new System.IO.DirectoryInfo(System.Environment.CurrentDirectory)));
+
+            //reopen the update
+            if (reopen)
+            {
+                Process launcherProcess = new Process();
+                launcherProcess.StartInfo.FileName = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory).FullName + "/KARphin.exe";
+                launcherProcess.Start();
+            }
+        }
+
+        Console.WriteLine("KARphin done updating.");
+        return 0;
+    }
+
+    //gets the latest client deps
+    else if (args[0] == "-resetClient")
+    {
+        Console.WriteLine("Client Data Resetting.....");
+
+        //close the update process if it's currently running
+        bool reopen = KillProcess("KARphin");
+
+        //deletes folder
+        if(File.Exists(System.Environment.CurrentDirectory + "/Clients"))
+            Directory.Delete(System.Environment.CurrentDirectory + "/Clients", true);
+
+        DirectoryInfo netplay = KWStructure.GenerateKWStructure_Directory_NetplayClients(new System.IO.DirectoryInfo(System.Environment.CurrentDirectory));
+
+        //perform update
+        KWQICommonInstalls.GetLatest_ClientDeps(netplay);
+        KWQICommonInstalls.GetLatest_KARphin(netplay);
+
+        //reopen the update
+        if (reopen)
+        {
+            Process launcherProcess = new Process();
+            launcherProcess.StartInfo.FileName = new System.IO.DirectoryInfo(System.Environment.CurrentDirectory).FullName + "/KARphin.exe";
+            launcherProcess.Start();
+        }
+
+        Console.WriteLine("Client Data Resetting.");
+        return 0;
+    }
+
+    //gets the latest tools
+    else if (args[0] == "-tools")
+    {
+        Console.WriteLine("Tools updating.....");
+
+        //deletes folder
+        if (File.Exists(System.Environment.CurrentDirectory + "/Tools"))
+            Directory.Delete(System.Environment.CurrentDirectory + "/Tools", true);
+
+        KWQICommonInstalls.GetLatest_Tools(KWStructure.GenerateKWStructure_Directory_Tools(new DirectoryInfo(System.Environment.CurrentDirectory)));
+
+        Console.WriteLine("Tools done updating.");
         return 0;
     }
 
