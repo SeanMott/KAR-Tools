@@ -1,3 +1,17 @@
+THIS REPO IS NO LONGER WORKED ON ALL THE TOOLS HAVE BEEN SPLIT INTO THIER OWN REPOS AND IMPROVED
+
+Bootstrapper: NA for now
+
+Updater: https://github.com/RiskiVR/KAR-Updater
+
+Packager: NA for now
+
+Package Manager: NA for now
+
+KWQI Format: https://github.com/SeanMott/KAR-KWQI
+
+Tools: https://github.com/KARWorkshop/Tools
+
 # KAR-Tools
 A public repo of various tools and data for the KAR Netplay scene
 
